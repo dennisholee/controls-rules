@@ -1,0 +1,9 @@
+{
+  "environment": "dev",
+  "controls": {
+    "dqMode": "shadow"
+  },
+  "logging": {
+    "sampleAllows": 1.0
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "environment": "staging",
+  "controls": {
+    "dqMode": "enforce"
+  },
+  "logging": {
+    "sampleAllows": 0.1
+  }
+}

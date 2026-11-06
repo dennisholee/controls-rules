@@ -1,0 +1,12 @@
+{
+  "environment": "prod",
+  "controls": {
+    "dqMode": "enforce"
+  },
+  "logging": {
+    "sampleAllows": 0.01
+  },
+  "bundle": {
+    "requireSignature": true
+  }
+}

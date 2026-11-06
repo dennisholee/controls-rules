@@ -1,0 +1,25 @@
+{
+  "name": "payment-create-owner",
+  "request": {
+    "method": "POST",
+    "path": "/payments",
+    "headers": { "x-subject": "u-1", "x-claim-region": "US" },
+    "body": {
+      "_type": "payment",
+      "_id": "P-9001",
+      "amount": 120.5,
+      "currency": "USD",
+      "ownerId": "u-1",
+      "region": "US"
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": { "id": "P-9001", "status": "accepted" }
+  },
+  "expect": {
+    "allowed": true,
+    "status": 200,
+    "masked": {}
+  }
+}
