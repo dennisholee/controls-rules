@@ -22,7 +22,8 @@ tools/validate.py local validation (stdlib only)
 
 1. Branch, edit rules/policies/registry.
 2. `make validate` locally.
-3. PR: CI runs validation + locked-field checks + conformance.
+3. PR: CI runs validation, locked-field checks, the registry ↔ OpenAPI gate
+   and conformance.
 4. Merge: pipeline renders the effective bundle, signs it, records the digest.
 5. Deploy: bundle digest is pinned in the service's deployment.
 6. Rollback: redeploy the previous digest — no application rebuild.
