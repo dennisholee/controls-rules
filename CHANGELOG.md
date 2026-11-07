@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0] — 2026-11-07
+
+### Added
+
+- OPA engine documentation and `examples/opa/opa.json`; validator rejects
+  `engine: opa` with JSON rules.
+
 ## [0.4.0] — 2026-11-07
 
 ### Added

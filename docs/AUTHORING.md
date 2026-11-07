@@ -75,6 +75,33 @@ evaluation fails the request is denied. See
 Conformance fixtures are still required: a Cedar policy change needs allow and
 deny cases like any other rule change.
 
+## 1c. OPA engine (optional)
+
+Teams that already run OPA can delegate decisions instead of authoring rules
+here. Put a single `policies/opa.json` in place of JSON rules:
+
+```json
+{
+  "version": "1.0",
+  "defaultEffect": "deny",
+  "engine": "opa",
+  "opa": { "decision": "controls/authz/allow" },
+  "rules": []
+}
+```
+
+The bundle selects the decision path; the sidecar supplies the OPA base URL
+(`-opa-url` / `CONTROLS_OPA_URL`). Each request becomes:
+
+```json
+{"input": {"subject": {...}, "resource": {...}, "resourceId": "...",
+           "action": "read", "request": {"method": "GET", "path": "/..."}}}
+```
+
+`true` or `{"allow": true}` allows; errors and timeouts deny. OPA policies are
+not in the bundle, so their review and versioning are owned by the OPA
+deployment. See `examples/opa/opa.json`.
+
 ## 2. Mask policies
 
 `mask-policies/*.json`

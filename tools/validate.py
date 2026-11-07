@@ -45,6 +45,8 @@ def check_policies():
             continue
         if doc.get("defaultEffect") not in ("deny", "allow"):
             errors.append("%s: defaultEffect must be deny or allow" % rel(path))
+        if doc.get("engine") == "opa" and doc.get("rules"):
+            errors.append("%s: engine opa cannot include JSON rules" % rel(path))
         for rule in doc.get("rules", []):
             count += 1
             rid = rule.get("id", "")

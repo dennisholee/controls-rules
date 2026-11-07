@@ -1,0 +1,9 @@
+{
+  "version": "1.0",
+  "defaultEffect": "deny",
+  "engine": "opa",
+  "opa": {
+    "decision": "controls/authz/allow"
+  },
+  "rules": []
+}

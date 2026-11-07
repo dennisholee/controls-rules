@@ -10,7 +10,7 @@ published contracts, runs conformance tests, and emits one bundle per service.
 ## Layout
 
 ```
-policies/         authorization rules (JSON) or *.cedar (Cedar engine)
+policies/         authorization rules (JSON), *.cedar (Cedar), or opa.json
 mask-policies/    field masking per journey
 registry/         route → resource binding per service
 dq/               request data-quality rules
