@@ -166,6 +166,20 @@ def check_dq():
     print("dq: %d rules" % count)
 
 
+def check_service_overlays():
+    for path in collect("services/*/overrides.json"):
+        doc = load(path)
+        if doc is None:
+            continue
+        bundle = doc.get("bundle") or {}
+        if bundle.get("defaultUnregistered") == "allow":
+            errors.append("%s: bundle.defaultUnregistered may not be allow" % rel(path))
+        service = doc.get("service")
+        expected = rel(path).split(os.sep)[1]
+        if service and service != expected:
+            errors.append("%s: service %r does not match directory" % (rel(path), service))
+
+
 def check_env():
     for path in collect("env/*/overrides.json"):
         doc = load(path)
@@ -173,6 +187,9 @@ def check_env():
             continue
         if doc.get("defaultUnregistered") == "allow":
             errors.append("%s: production guardrail violated" % rel(path))
+        bundle = doc.get("bundle") or {}
+        if bundle.get("defaultUnregistered") == "allow":
+            errors.append("%s: bundle.defaultUnregistered may not be allow" % rel(path))
         env = doc.get("environment")
         expected = rel(path).split(os.sep)[1]
         if env != expected:
@@ -200,6 +217,7 @@ def main():
     check_registry(masks)
     check_dq()
     check_env()
+    check_service_overlays()
     check_fixtures()
     if errors:
         print("\nFAILED (%d):" % len(errors))
