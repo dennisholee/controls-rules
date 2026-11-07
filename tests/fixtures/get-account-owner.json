@@ -3,14 +3,20 @@
   "request": {
     "method": "GET",
     "path": "/accounts/A123",
-    "headers": { "x-subject": "u-1", "x-claim-region": "US" },
+    "headers": {
+      "x-subject": "u-1",
+      "x-claim-region": "US"
+    },
     "body": null
   },
   "response": {
     "status": 200,
     "body": {
       "accountNumber": "1234567890",
-      "holder": { "email": "jane.doe@example.com", "phone": "+15551234567" },
+      "holder": {
+        "email": "jane.doe@example.com",
+        "phone": "+15551234567"
+      },
       "ssn": "111-22-3333",
       "dateOfBirth": "1990-01-02",
       "status": "active"
@@ -25,6 +31,16 @@
       "ssn": "[REDACTED]",
       "dateOfBirth": "1990******",
       "status": "active"
+    }
+  },
+  "service": "accounts",
+  "pip": {
+    "account": {
+      "A123": {
+        "ownerId": "u-1",
+        "region": "US",
+        "status": "active"
+      }
     }
   }
 }

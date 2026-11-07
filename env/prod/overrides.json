@@ -6,7 +6,7 @@
   "logging": {
     "sampleAllows": 0.01
   },
-  "bundle": {
+  "pipeline": {
     "requireSignature": true
   }
 }

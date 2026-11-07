@@ -81,6 +81,7 @@ same structures. Normative schemas live in `controls-core/contracts/`.
   "endpoints": [
     {
       "id": "get-account",
+      "service": "accounts",
       "method": "GET",
       "path": "/accounts/{accountId}",
       "resourceType": "account",
@@ -95,6 +96,8 @@ same structures. Normative schemas live in `controls-core/contracts/`.
 }
 ```
 
+- `service` is required for per-service rendering; the renderer keeps only
+  endpoints whose `service` matches the requested service.
 - Type and identity come from the route; payload `_type` is only a cross-check.
 - `resourceSource`: `pip` for existing resources, `body` for creation, `both`
   when the payload carries some fields.
@@ -119,14 +122,43 @@ same structures. Normative schemas live in `controls-core/contracts/`.
 - Prefer quarantine + alert over rejection for statistical rules.
 - Ops: `gt`, `gte`, `lt`, `lte`, `eq`, `pattern`, `maxLength`, `type`.
 
-## 5. Environment overlays
+## 5. Environment and service overlays
 
-`env/<env>/overrides.json` may adjust only delivery-owned, non-structural keys:
-sampling, enable flags, threshold overrides, tenant maps. It may **not** change
-failure modes, filter order or `defaultUnregistered` to `allow` in production
-(the validator enforces the last one).
+`env/<env>/overrides.json` and `services/<service>/overrides.json` share this
+schema:
 
-## 6. Change checklist
+```json
+{
+  "environment": "prod",
+  "bundle": {
+    "defaultUnregistered": "deny",
+    "disableRules": ["rule.id"],
+    "disableDQRules": ["dq.rule.id"],
+    "disableEndpoints": ["endpoint-id"],
+    "maskPolicies": {
+      "journey.account.read": { "default": "full", "fields": {} }
+    }
+  }
+}
+```
+
+Unknown disable ids fail the render. Mask policy overrides must name an existing
+policy and are re-validated (locked fields included) before a bundle is emitted.
+Overlays may **not** change failure modes, filter order or set
+`defaultUnregistered: allow` in production.
+
+## 6. Rendering and conformance
+
+```bash
+bundle -src . -env prod -service accounts -out dist/accounts
+conformance -bundle dist/accounts -fixtures tests/fixtures -service accounts -v
+```
+
+Rendering is deterministic: identical sources produce the same digest, recorded
+in `dist/<service>/manifest.json`. Conformance runs fixtures for the service and
+asserts decisions, reasons and masked fields.
+
+## 7. Change checklist
 
 - [ ] `make validate`
 - [ ] Decision logs would identify the change (stable ids, no renames)

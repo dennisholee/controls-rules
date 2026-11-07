@@ -15,15 +15,17 @@ mask-policies/    field masking per journey
 registry/         route → resource binding per service
 dq/               request data-quality rules
 env/{dev,staging,prod}/   environment overlays
+services/<service>/       per-service overlays (optional)
 tools/validate.py local validation (stdlib only)
+dist/             rendered bundles (generated, not committed)
 ```
 
 ## Workflow
 
 1. Branch, edit rules/policies/registry.
 2. `make validate` locally.
-3. PR: CI runs validation, locked-field checks, the registry ↔ OpenAPI gate
-   and conformance.
+3. PR: CI runs validation and the conformance gate; Jenkins renders the bundle
+   (`bundle`) and runs the same checks before signing.
 4. Merge: pipeline renders the effective bundle, signs it, records the digest.
 5. Deploy: bundle digest is pinned in the service's deployment.
 6. Rollback: redeploy the previous digest — no application rebuild.
@@ -53,8 +55,11 @@ schemas live in the `controls-core` repo under `contracts/`.
 ## Local validation
 
 ```bash
-make validate
+make validate      # stdlib-only JSON/invariant checks
+make render        # bundle -src . -env $ENV -service $SERVICE
+make conformance   # conformance -bundle dist/$SERVICE -fixtures tests/fixtures
 ```
 
-Requires only Python 3; the validator checks JSON syntax, unique ids, mask
-policy references, locked fields and production guardrails.
+`validate` needs only Python 3. `render`/`conformance` need the
+`controls-tools` image (or the binaries on `PATH`); the Jenkins job uses the
+pinned image. See `controls-core/docs/PIPELINE.md`.

@@ -3,7 +3,10 @@
   "request": {
     "method": "POST",
     "path": "/payments",
-    "headers": { "x-subject": "u-1", "x-claim-region": "US" },
+    "headers": {
+      "x-subject": "u-1",
+      "x-claim-region": "US"
+    },
     "body": {
       "_type": "payment",
       "_id": "P-9001",
@@ -15,11 +18,15 @@
   },
   "response": {
     "status": 201,
-    "body": { "id": "P-9001", "status": "accepted" }
+    "body": {
+      "id": "P-9001",
+      "status": "accepted"
+    }
   },
   "expect": {
     "allowed": true,
     "status": 200,
     "masked": {}
-  }
+  },
+  "service": "payments"
 }

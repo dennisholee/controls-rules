@@ -8,13 +8,17 @@
       "path": "/payments",
       "resourceType": "payment",
       "action": "write",
-      "resourceId": { "from": "body", "path": "$._id" },
+      "resourceId": {
+        "from": "body",
+        "path": "$._id"
+      },
       "resourceSource": "body",
       "attributes": [],
       "maskPolicy": "journey.payment.write",
       "maskErrors": true,
       "freshness": "fresh",
-      "selfDescribing": true
+      "selfDescribing": true,
+      "service": "payments"
     }
   ]
 }

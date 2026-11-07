@@ -8,13 +8,21 @@
       "path": "/accounts/{accountId}",
       "resourceType": "account",
       "action": "read",
-      "resourceId": { "from": "path", "name": "accountId" },
+      "resourceId": {
+        "from": "path",
+        "name": "accountId"
+      },
       "resourceSource": "pip",
-      "attributes": ["ownerId", "region", "status"],
+      "attributes": [
+        "ownerId",
+        "region",
+        "status"
+      ],
       "maskPolicy": "journey.account.read",
       "maskErrors": true,
       "freshness": "cached",
-      "selfDescribing": false
+      "selfDescribing": false,
+      "service": "accounts"
     }
   ]
 }

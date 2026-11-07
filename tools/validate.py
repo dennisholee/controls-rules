@@ -124,6 +124,11 @@ def check_registry(mask_names):
             for key in ("method", "path", "resourceType"):
                 if not ep.get(key):
                     errors.append("%s: endpoint %s missing %s" % (rel(path), eid, key))
+            service = ep.get("service")
+            if not service:
+                errors.append("%s: endpoint %s missing service" % (rel(path), eid))
+            elif not ID_RE.match(service):
+                errors.append("%s: endpoint %s service not kebab-case" % (rel(path), eid))
             ref = ep.get("resourceId", {})
             if ref.get("from") == "path" and not ref.get("name"):
                 errors.append("%s: endpoint %s path ref needs name" % (rel(path), eid))
@@ -181,7 +186,7 @@ def check_fixtures():
         if doc is None:
             continue
         count += 1
-        for key in ("name", "request", "expect"):
+        for key in ("name", "request", "expect", "service"):
             if key not in doc:
                 errors.append("%s: fixture missing %s" % (rel(path), key))
         if doc.get("request", {}).get("method") is None:

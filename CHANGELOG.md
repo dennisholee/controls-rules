@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.0] — 2026-11-07
+
+### Added
+
+- `service` ownership on every registry endpoint, enabling per-service bundles.
+- Per-service overlays under `services/<service>/overrides.json`.
+- `render` and `conformance` targets for the centrally managed Jenkins job.
+- PIP data and a denied case in the account fixtures; fixture `service` tags.
+
 ## [0.1.0] — 2026-11-06
 
 ### Added

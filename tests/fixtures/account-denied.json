@@ -1,0 +1,26 @@
+{
+  "name": "account-other-region-denied",
+  "service": "accounts",
+  "pip": {
+    "account": {
+      "A123": {
+        "ownerId": "u-1",
+        "region": "US",
+        "status": "active"
+      }
+    }
+  },
+  "request": {
+    "method": "GET",
+    "path": "/accounts/A123",
+    "headers": {
+      "x-subject": "u-2",
+      "x-claim-region": "EU"
+    }
+  },
+  "expect": {
+    "allowed": false,
+    "status": 403,
+    "reason": "default:deny(no-allow-match)"
+  }
+}
