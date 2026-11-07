@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0] — 2026-11-07
+
+### Added
+
+- Cedar engine documentation and `examples/cedar/account-read.cedar`.
+- Validator rejects mixing JSON rules and Cedar policies.
+
 ## [0.3.0] — 2026-11-07
 
 ### Added

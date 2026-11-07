@@ -43,6 +43,38 @@ same structures. Normative schemas live in `controls-core/contracts/`.
 - Allowing on the absence of an attribute; treat missing data as deny.
 - Broad `resourceType: "*"` allow rules.
 
+## 1b. Cedar engine (optional)
+
+Instead of JSON rules, a service can use Cedar. Put one or more `*.cedar` files
+in `policies/`; the renderer sets `rules.engine: "cedar"` and emits
+`policies.cedar`. JSON rules and Cedar cannot be mixed.
+
+Mapping:
+
+| Cedar | Value |
+|---|---|
+| `principal` | `User::"<sub>"`; attributes are the subject claims plus `sub` |
+| `resource` | `<ResourceType>::"<id>"` (type capitalised); attributes from the PIP/body |
+| `action` | `Action::"<read\|write\|delete>"` |
+
+```cedar
+permit (
+  principal,
+  action == Action::"read",
+  resource
+)
+when {
+  principal.sub == resource.ownerId
+};
+```
+
+Cedar denies by default. If parsing fails the sidecar refuses to start; if
+evaluation fails the request is denied. See
+`examples/cedar/account-read.cedar`.
+
+Conformance fixtures are still required: a Cedar policy change needs allow and
+deny cases like any other rule change.
+
 ## 2. Mask policies
 
 `mask-policies/*.json`

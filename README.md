@@ -10,7 +10,7 @@ published contracts, runs conformance tests, and emits one bundle per service.
 ## Layout
 
 ```
-policies/         authorization rules (deny-first)
+policies/         authorization rules (JSON) or *.cedar (Cedar engine)
 mask-policies/    field masking per journey
 registry/         route → resource binding per service
 dq/               request data-quality rules
@@ -43,6 +43,7 @@ dist/             rendered bundles (generated, not committed)
 ## Rules of the road
 
 - **Deny-first.** `defaultEffect` is `deny`; allow rules must be justified.
+  Cedar policies likewise deny unless a `permit` matches.
 - **Never relax locked fields.** `ssn`, `pan`, `cvv`, `cardNumber` are
   `full` only; validation fails otherwise.
 - **No secrets or payloads in this repo.** Rules reference fields, never values

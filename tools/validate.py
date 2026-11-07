@@ -58,6 +58,11 @@ def check_policies():
                 errors.append("%s: rule %s effect invalid" % (rel(path), rid))
             if not rule.get("when"):
                 errors.append("%s: rule %s has no condition" % (rel(path), rid))
+    cedar = collect("policies/*.cedar")
+    if cedar and count:
+        errors.append("cannot combine JSON rules with Cedar policies")
+    if cedar:
+        print("cedar policies: %d files" % len(cedar))
     print("policies: %d rules" % count)
 
 
