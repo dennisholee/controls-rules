@@ -65,6 +65,9 @@ same structures. Normative schemas live in `controls-core/contracts/`.
 
 - `default` applies to unlisted leaf fields: `none` or `full`.
 - Partial requires explicit parameters; a bare partial fails validation.
+- `fallback: "classification"` masks any `pii.*`-tagged field the policy does
+  not explicitly cover; explicit rules win, and a classification failure denies
+  the response.
 - Locked fields (`ssn`, `pan`, `cvv`, `cardNumber`) must be `full`.
 - `rejectFields` blocks write requests containing those fields.
 - Changing the exact masked output is a contract change; expect downstream tests

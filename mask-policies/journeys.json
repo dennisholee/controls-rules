@@ -4,25 +4,51 @@
     "journey.account.read": {
       "default": "none",
       "fields": {
-        "accountNumber": { "mode": "partial", "keepSuffix": 4 },
-        "holder.email": { "mode": "partial", "keepPrefix": 1, "preserveDomain": true },
-        "holder.phone": { "mode": "partial", "keepPrefix": 3, "keepSuffix": 2 },
-        "ssn": { "mode": "full" },
-        "dateOfBirth": { "mode": "partial", "keep": "year" }
-      }
+        "accountNumber": {
+          "mode": "partial",
+          "keepSuffix": 4
+        },
+        "holder.email": {
+          "mode": "partial",
+          "keepPrefix": 1,
+          "preserveDomain": true
+        },
+        "holder.phone": {
+          "mode": "partial",
+          "keepPrefix": 3,
+          "keepSuffix": 2
+        },
+        "ssn": {
+          "mode": "full"
+        },
+        "dateOfBirth": {
+          "mode": "partial",
+          "keep": "year"
+        }
+      },
+      "fallback": "classification"
     },
     "journey.account.read.strict": {
       "default": "full",
       "fields": {
-        "status": { "mode": "none" }
+        "status": {
+          "mode": "none"
+        }
       }
     },
     "journey.payment.write": {
       "default": "none",
-      "rejectFields": ["pan", "cvv"],
+      "rejectFields": [
+        "pan",
+        "cvv"
+      ],
       "fields": {
-        "pan": { "mode": "full" },
-        "cvv": { "mode": "full" }
+        "pan": {
+          "mode": "full"
+        },
+        "cvv": {
+          "mode": "full"
+        }
       }
     }
   }

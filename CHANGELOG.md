@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0] — 2026-11-07
+
+### Added
+
+- `fallback: "classification"` on `journey.account.read`, so PII-tagged fields
+  not explicitly listed are masked.
+
 ## [0.2.0] — 2026-11-07
 
 ### Added
