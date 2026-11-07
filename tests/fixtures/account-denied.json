@@ -22,5 +22,10 @@
     "allowed": false,
     "status": 403,
     "reason": "default:deny(no-allow-match)"
+  },
+  "classification": {
+    "accountNumber": "pii.partial",
+    "holder.email": "pii.partial",
+    "ssn": "pii.locked"
   }
 }

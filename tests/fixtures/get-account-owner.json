@@ -42,5 +42,10 @@
         "status": "active"
       }
     }
+  },
+  "classification": {
+    "accountNumber": "pii.partial",
+    "holder.email": "pii.partial",
+    "ssn": "pii.locked"
   }
 }
