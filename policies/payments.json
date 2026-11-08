@@ -12,6 +12,17 @@
         "op": "eq",
         "value": "$resource.ownerId"
       }
+    },
+    {
+      "id": "payment.write.support",
+      "effect": "allow",
+      "resourceType": "payment",
+      "action": "write",
+      "when": {
+        "field": "subject.claims.role",
+        "op": "eq",
+        "value": "support"
+      }
     }
   ]
 }

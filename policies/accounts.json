@@ -20,8 +20,16 @@
       "action": "read",
       "when": {
         "any": [
-          { "field": "subject.sub", "op": "eq", "value": "$resource.ownerId" },
-          { "field": "subject.claims.region", "op": "eq", "value": "$resource.region" }
+          {
+            "field": "subject.sub",
+            "op": "eq",
+            "value": "$resource.ownerId"
+          },
+          {
+            "field": "subject.claims.region",
+            "op": "eq",
+            "value": "$resource.region"
+          }
         ]
       }
     },
@@ -32,9 +40,28 @@
       "action": "read",
       "when": {
         "all": [
-          { "field": "subject.claims.role", "op": "eq", "value": "agent" },
-          { "field": "resource.status", "op": "eq", "value": "active" }
+          {
+            "field": "subject.claims.role",
+            "op": "eq",
+            "value": "agent"
+          },
+          {
+            "field": "resource.status",
+            "op": "eq",
+            "value": "active"
+          }
         ]
+      }
+    },
+    {
+      "id": "account.read.support",
+      "effect": "allow",
+      "resourceType": "account",
+      "action": "read",
+      "when": {
+        "field": "subject.claims.role",
+        "op": "eq",
+        "value": "support"
       }
     }
   ]
