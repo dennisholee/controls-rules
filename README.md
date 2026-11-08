@@ -23,8 +23,8 @@ dist/             rendered bundles (generated, not committed)
 
 1. Branch, edit rules, mask policies and DQ.
 2. `make validate` locally.
-3. PR: CI runs validation and the conformance gate; Jenkins renders the bundle
-   (`bundle`) and runs the same checks before signing.
+3. PR: CI runs validation; Jenkins merges the service's generated registry
+   fragment, renders the bundle and runs conformance before signing.
 4. Merge: pipeline renders the effective bundle, signs it, records the digest.
 5. Deploy: bundle digest is pinned in the service's deployment.
 6. Rollback: redeploy the previous digest — no application rebuild.
