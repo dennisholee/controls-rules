@@ -6,7 +6,6 @@ on:
     paths:
       - "policies/**"
       - "mask-policies/**"
-      - "registry/**"
       - "dq/**"
       - "env/**"
       - "tests/**"
@@ -15,7 +14,6 @@ on:
     paths:
       - "policies/**"
       - "mask-policies/**"
-      - "registry/**"
       - "dq/**"
       - "env/**"
       - "tests/**"
