@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "policies": {
-    "journey.account.read": {
+    "account.read": {
       "default": "none",
       "fields": {
         "accountNumber": {
@@ -28,7 +28,7 @@
       },
       "fallback": "classification"
     },
-    "journey.account.read.strict": {
+    "account.read.strict": {
       "default": "full",
       "fields": {
         "status": {
@@ -36,7 +36,7 @@
         }
       }
     },
-    "journey.payment.write": {
+    "payment.write": {
       "default": "none",
       "rejectFields": [
         "pan",

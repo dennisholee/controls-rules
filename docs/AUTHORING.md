@@ -110,7 +110,7 @@ deployment. See `examples/opa/opa.json`.
 {
   "version": "1.0",
   "policies": {
-    "journey.account.read": {
+    "account.read": {
       "default": "none",
       "fields": {
         "accountNumber": { "mode": "partial", "keepSuffix": 4 },
@@ -132,9 +132,11 @@ deployment. See `examples/opa/opa.json`.
 - Changing the exact masked output is a contract change; expect downstream tests
   to pin it.
 
-## 3. Registry entries
+## 3. Registry fragment (service-owned)
 
-`registry/*.json`
+The service generates `registry.json` from OpenAPI annotations with
+`openapi-registry`; the delivery pipeline merges that fragment. Do not
+hand-author registry entries in this repository.
 
 ```json
 {
@@ -151,13 +153,15 @@ deployment. See `examples/opa/opa.json`.
       "resourceId": { "from": "path", "name": "accountId" },
       "resourceSource": "pip",
       "attributes": ["ownerId", "region", "status"],
-      "maskPolicy": "journey.account.read",
+      "maskPolicy": "account.read",
       "maskErrors": true
     }
   ]
 }
 ```
 
+- The fragment is generated once per service and committed with the OpenAPI
+  contract; the pipeline rejects drift.
 - `service` is required for per-service rendering; the renderer keeps only
   endpoints whose `service` matches the requested service.
 - Type and identity come from the route; payload `_type` is only a cross-check.
@@ -198,7 +202,7 @@ schema:
     "disableDQRules": ["dq.rule.id"],
     "disableEndpoints": ["endpoint-id"],
     "maskPolicies": {
-      "journey.account.read": { "default": "full", "fields": {} }
+      "account.read": { "default": "full", "fields": {} }
     }
   }
 }
