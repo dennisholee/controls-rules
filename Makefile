@@ -11,6 +11,7 @@ fixture-list:
 	@ls tests/fixtures | sed 's/\.json$$//'
 
 render:
+	@test -d registry || { echo "render requires a service-generated registry/ fragment; use the central pipeline" >&2; exit 1; }
 	bundle -src . -env $(ENV) -service $(SERVICE) -out dist/$(SERVICE)
 
 conformance:
